@@ -1,47 +1,38 @@
-# 🚩 CTF-Writeups
+# 🚩 CTF Writeups — Harshil Makwana
 
-> *Because hoarding flags is the only acceptable kind of hoarding.*
+> *A living portfolio of hands-on offensive security practice — one flag at a time.*
 
-A personal collection of CTF (Capture The Flag) writeups — my way of documenting what I broke, how I broke it, and what I learned along the way. Every challenge in here taught me something, whether it was a clean solve or an embarrassing rabbit hole that cost me three hours.
+Hi, I'm **Harshil Makwana**, a cybersecurity practitioner actively building depth across offensive security, web exploitation, network analysis, and more. This repository is my public technical portfolio — a structured record of every CTF challenge I've solved, the methodology I applied, and what I learned.
+
+I'm **open to cybersecurity roles** across:
+
+🌍 **International:** Netherlands · Singapore · Switzerland · Norway · Germany · Finland  
+🇮🇳 **India:** Bangalore · Pune · Hyderabad · Gurugram · Noida
+
+If you're a recruiter, hiring manager, or team lead in any of these locations — feel free to explore the writeups. They reflect how I think through problems, not just what tools I know.
 
 ---
 
-## What's this about?
+## 📌 About This Repo
 
-I use this repo to track my progress through CTF challenges and keep detailed writeups of my solutions. Think of it as a public notebook — structured enough to be useful later, honest enough to include the parts where I had no idea what I was doing.
+Every writeup here documents the **full thought process** — the right paths, the wrong turns, and the reasoning behind every decision. If I went down a rabbit hole before finding the solution, that's in here too. Those detours are usually where the actual learning happens.
 
-The writeups cover the full thought process, not just the final payload. If I went down a wrong path before finding the solution, that's in here too. Those detours are usually where the actual learning happens.
+This repo is not a trophy cabinet. It's a notebook that shows how I approach security problems under pressure — which is closer to real-world work than any certification can be.
 
 ---
 
-## Platforms
+## 🖥️ Platform
 
 | Platform | Focus |
 |---|---|
-| [HackTheBox](https://hackthebox.com) | Machines, challenges, Prolabs |
-| [TryHackMe](https://tryhackme.com) | Learning paths, rooms, events |
-
-More platforms may be added as I explore. This repo will keep growing.
+| [TryHackMe](https://tryhackme.com) | Learning paths, rooms, events, CTF challenges |
 
 ---
 
-## Repository Structure
+## 📁 Repository Structure
 
 ```
 flag-hoarder/
-│
-├── HackTheBox/
-│   ├── Machines/
-│   │   ├── Easy/
-│   │   ├── Medium/
-│   │   └── Hard/
-│   └── Challenges/
-│       ├── Web/
-│       ├── Pwn/
-│       ├── Crypto/
-│       ├── Forensics/
-│       ├── Reversing/
-│       └── Misc/
 │
 ├── TryHackMe/
 │   ├── Rooms/
@@ -51,71 +42,96 @@ flag-hoarder/
     └── cheatsheets, notes, useful references
 ```
 
-> Structure may evolve as the repo grows. I'll keep it logical.
+> Structure evolves as the repo grows. Kept intentionally logical and navigable.
 
 ---
 
-## Topics Covered
+## 🧠 Skills Demonstrated
 
-Not every writeup touches all of these, but collectively this repo deals with:
+The writeups collectively cover a wide range of domains relevant to **penetration testing**, **SOC analysis**, **red teaming**, and **security engineering** roles:
 
-- **Web exploitation** — SQLi, XSS, SSRF, IDOR, auth bypasses, deserialization
-- **Privilege escalation** — Linux & Windows, misconfigs, kernel exploits, SUID/GUID abuse
-- **Binary exploitation & Reversing** — buffer overflows, ROP chains, disassembly, patching
-- **Cryptography** — classic ciphers, RSA flaws, hash cracking, custom implementations
-- **Forensics** — disk/memory analysis, steganography, packet capture analysis
-- **Active Directory** — Kerberoasting, Pass-the-Hash, BloodHound enumeration, lateral movement
-- **Network analysis** — Wireshark, traffic inspection, protocol analysis
-- **OSINT** — recon techniques, metadata, open-source intelligence gathering
+| Domain | Topics |
+|---|---|
+| **Web Exploitation** | SQLi, XSS, SSRF, IDOR, auth bypasses, deserialization |
+| **Privilege Escalation** | Linux & Windows misconfigs, SUID/GUID abuse, kernel exploits |
+| **Binary Exploitation & Reversing** | Buffer overflows, ROP chains, disassembly, binary patching |
+| **Cryptography** | Classic ciphers, RSA flaws, hash cracking, custom crypto |
+| **Forensics** | Disk/memory analysis, steganography, packet capture |
+| **Active Directory** | Kerberoasting, Pass-the-Hash, BloodHound enumeration, lateral movement |
+| **Network Analysis** | Wireshark, traffic inspection, protocol analysis |
+| **OSINT** | Recon techniques, metadata analysis, open-source intelligence |
 
 ---
 
-## Tools I Use Regularly
-
-This isn't exhaustive, but these show up a lot across writeups:
+## 🛠️ Tools I Use Regularly
 
 `nmap` · `gobuster` / `ffuf` · `Burp Suite` · `netcat` · `pwntools` · `GDB` / `peda` · `IDA Free` / `Ghidra` · `Volatility` · `Wireshark` · `CyberChef` · `hashcat` / `john` · `BloodHound` / `SharpHound` · `Impacket` · `Metasploit` · `sqlmap` · `LinPEAS` / `WinPEAS`
 
 ---
 
-## Progress Tracker
+## 📊 Progress Tracker
 
-*(Updated as I go)*
+**Platform:** TryHackMe &nbsp;|&nbsp; **Rooms Completed: 12**
 
-| Platform | Machines / Rooms Completed | Challenges Completed |
-|---|---|---|
-| HackTheBox | 🔄 In progress | 🔄 In progress |
-| TryHackMe | 🔄 In progress | 🔄 In progress |
+| #  | Room             | Difficulty    | Primary Domain(s)                               |
+|----|------------------|---------------|-------------------------------------------------|
+| 1  | Simple CTF       | 🟢 Easy       | 🌐 Web · 🔺 Privilege Escalation               |
+| 2  | Mindgames        | 🟡 Medium     | 🔐 Cryptography · 🌐 Web                       |
+| 3  | The Marketplace  | 🟡 Medium     | 🌐 Web Exploitation                             |
+| 4  | Bookstore        | 🟢 Easy       | 🌐 Web · API Exploitation                       |
+| 5  | JPGChat          | 🟢 Easy       | 🌐 Web · Command Injection                      |
+| 6  | VulnNet          | 🟡 Medium     | 🖥️ Network Analysis · 🔺 Privilege Escalation  |
+| 7  | Unstable Twin    | 🟡 Medium     | 🌐 Web · 🔺 Privilege Escalation               |
+| 8  | Biteme           | 🟡 Medium     | 🌐 Web · Brute Force                            |
+| 9  | Billing          | 🟢 Easy       | 🌐 Web · 🔺 Privilege Escalation               |
+| 10 | Light            | 🟢 Easy       | 🌐 Web · SQLi                                   |
+| 11 | GoldenEye        | 🟡 Medium     | 🖥️ Network Analysis · 🌐 Web                   |
+| 12 | Madness          | 🟢 Easy       | 🔬 Forensics · 🔺 Privilege Escalation          |
 
----
+**Key:** 🌐 Web · 🔺 Privilege Escalation · 🔬 Forensics · 🖥️ Network Analysis · 🔐 Cryptography
 
-## Why writeups?
-
-A few reasons:
-
-1. **Retention** — Writing it down forces you to actually understand what happened, not just get lucky with a payload.
-2. **Portfolio** — This repo is a live record of real problem-solving, which matters more to me than a certification list.
-3. **Community** — CTF culture runs on knowledge sharing. Someone helped me at some point (a blog post, a hint, a Discord message), and this is a way to give that back.
-
----
-
-## A note on spoilers
-
-All writeups are for retired machines and released challenges. I don't post solutions to active challenges — that's against platform rules and defeats the purpose anyway.
+> Domain tags are approximate — update any that don't accurately reflect a room's focus.
 
 ---
 
-## Get in Touch
+## 🎯 Why This Repo Matters (for Recruiters)
 
-Always happy to connect with other CTF players, security folks, or anyone who wants to talk about a writeup.
+Certifications tell you what someone studied. This repo tells you how someone thinks.
 
-- GitHub: [@justincognito725](https://github.com/justincognito725)
-- TryHackMe Link 1: https://tryhackme.com/p/flag.raider
-- TryHackMe Link 2: https://tryhackme.com/p/justflagging
-- LinkedIn: www.linkedin.com/in/harshilmakwana
+Here's what you'll find evidence of in these writeups:
+
+- **Structured problem-solving** under ambiguity — no one hands you hints in a real engagement
+- **Tool proficiency across the full offensive stack** — not just one specialisation
+- **Documentation discipline** — writeups are clear, reproducible, and methodical
+- **Self-directed learning** — every challenge here was pursued independently
+- **Security mindset** — understanding why vulnerabilities exist, not just how to exploit them
+
+---
+
+## 📝 Why Writeups?
+
+1. **Retention** — Writing it down forces genuine understanding, not just lucky payloads.
+2. **Portfolio** — A live record of real problem-solving that speaks louder than a certificate list.
+3. **Community** — CTF culture runs on knowledge sharing. Someone helped me at some point (a blog post, a hint, a Discord message) — this is how I give that back.
+
+---
+
+## ⚠️ A Note on Spoilers
+
+All writeups are for **retired rooms and released challenges**. No active challenge solutions are posted here — that's against platform rules, and it defeats the point anyway.
+
+---
+
+## 📬 Get in Touch
+
+Open to opportunities, collaborations, and conversations about security.
+
+- **GitHub:** [@justincognito725](https://github.com/justincognito725)
+- **TryHackMe:** [flag.raider](https://tryhackme.com/p/flag.raider) · [justflagging](https://tryhackme.com/p/justflagging)
+- **LinkedIn:** [linkedin.com/in/harshilmakwana](https://www.linkedin.com/in/harshilmakwana)
 
 ---
 
 <p align="center">
-  <i>Built one flag at a time.</i>
+  <i>The flags are retired. The skills aren't.</i>
 </p>
