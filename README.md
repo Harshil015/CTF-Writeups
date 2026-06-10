@@ -23,9 +23,7 @@ This repo is not a trophy cabinet. It's a notebook that shows how I approach sec
 
 ## 🖥️ Platform
 
-| Platform | Focus |
-|---|---|
-| [TryHackMe](https://tryhackme.com) | Learning paths, rooms, events, CTF challenges |
+All challenges in this repo are solved on **[TryHackMe](https://tryhackme.com)** — exclusively CTFs.
 
 ---
 
@@ -35,8 +33,7 @@ This repo is not a trophy cabinet. It's a notebook that shows how I approach sec
 flag-hoarder/
 │
 ├── TryHackMe/
-│   ├── Rooms/
-│   └── Paths/
+│   └── Rooms/
 │
 └── Resources/
     └── cheatsheets, notes, useful references
