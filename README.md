@@ -1,4 +1,4 @@
-# 🚩 flag-hoarder
+# 🚩 CTF-Writeups
 
 > *Because hoarding flags is the only acceptable kind of hoarding.*
 
