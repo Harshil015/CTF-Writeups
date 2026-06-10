@@ -122,7 +122,7 @@ All writeups are for **retired rooms and released challenges**. No active challe
 
 Open to opportunities, collaborations, and conversations about security.
 
-- **GitHub:** [@justincognito725](https://github.com/justincognito725)
+- **GitHub:** [@Harshil015](https://github.com/Harshil015)
 - **TryHackMe:** [flag.raider](https://tryhackme.com/p/flag.raider) · [justflagging](https://tryhackme.com/p/justflagging)
 - **LinkedIn:** [linkedin.com/in/harshilmakwana](https://www.linkedin.com/in/harshilmakwana)
 
