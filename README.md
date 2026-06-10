@@ -30,10 +30,9 @@ All challenges in this repo are solved on **[TryHackMe](https://tryhackme.com)**
 ## 📁 Repository Structure
 
 ```
-flag-hoarder/
+CTF-Writeups/
 │
-├── TryHackMe/
-│   └── Rooms/
+├── TryHackMe Rooms/
 │
 └── Resources/
     └── cheatsheets, notes, useful references
